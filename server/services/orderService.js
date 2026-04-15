@@ -8,9 +8,47 @@ const placeOrder = async (userId, shippingDetails, cartItems, totalAmount) => {
     shippingDetails.landmark,
   ].filter(Boolean).join(', ');
   const addressType = shippingDetails.addressType || 'HOME';
+
+  const ensureSufficientStock = async () => {
+    for (const item of cartItems) {
+      const [productRows] = await connection.execute(
+        `SELECT id, name, stock FROM products WHERE id = ? FOR UPDATE`,
+        [item.product_id]
+      );
+
+      if (productRows.length === 0) {
+        const error = new Error(`Product with id ${item.product_id} not found.`);
+        error.statusCode = 404;
+        throw error;
+      }
+
+      const product = productRows[0];
+      const requestedQty = Number(item.quantity || 0);
+
+      if (product.stock < requestedQty) {
+        const error = new Error(
+          `Insufficient stock for ${product.name}. Only ${product.stock} item(s) left.`
+        );
+        error.statusCode = 400;
+        throw error;
+      }
+    }
+  };
+
+  const deductStock = async () => {
+    for (const item of cartItems) {
+      await connection.execute(
+        `UPDATE products SET stock = stock - ? WHERE id = ?`,
+        [item.quantity, item.product_id]
+      );
+    }
+  };
   
   try {
     await connection.beginTransaction();
+
+    // Lock products in the cart and ensure enough inventory exists.
+    await ensureSufficientStock();
 
     // 1. Create the Order record
     let orderResult;
@@ -85,7 +123,10 @@ const placeOrder = async (userId, shippingDetails, cartItems, totalAmount) => {
       );
     }
 
-    // 3. Clear the user's cart
+    // 3. Deduct inventory now that order items are confirmed.
+    await deductStock();
+
+    // 4. Clear the user's cart
     await connection.execute(`DELETE FROM cart_items WHERE user_id = ?`, [userId]);
 
     await connection.commit();

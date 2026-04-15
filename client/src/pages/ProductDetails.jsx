@@ -81,6 +81,8 @@ const ProductDetails = () => {
 
   const priceValue = Number(product?.price || 0);
   const mrpValue = Number(product?.mrp || 0);
+  const stockValue = Number(product?.stock || 0);
+  const isInStock = stockValue > 0;
   const discountPercent = mrpValue > priceValue
     ? Math.round(((mrpValue - priceValue) / mrpValue) * 100)
     : 0;
@@ -95,7 +97,7 @@ const ProductDetails = () => {
   ];
 
   const handleAddToCart = async () => {
-    if (!product) return;
+    if (!product || !isInStock) return;
     const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
     try {
@@ -116,6 +118,7 @@ const ProductDetails = () => {
   };
 
   const handleBuyNow = async () => {
+    if (!isInStock) return;
     if (!inCart) {
       await handleAddToCart();
     }
@@ -254,6 +257,14 @@ const ProductDetails = () => {
                 </span>
               </div>
               <div className="mt-2 text-[14px] text-gray-600">{product.description}</div>
+              <div className="mt-3 flex items-center gap-2">
+                <span className={`text-[13px] font-semibold ${isInStock ? 'text-green-700' : 'text-red-600'}`}>
+                  {isInStock ? 'In stock' : 'Out of stock'}
+                </span>
+                {isInStock && (
+                  <span className="text-[12px] text-gray-500">({stockValue} item(s) left)</span>
+                )}
+              </div>
             </div>
 
             <div className="bg-white rounded-xl border border-gray-200 p-4">
@@ -396,16 +407,18 @@ const ProductDetails = () => {
           <div className="sticky bottom-4">
             <div className="bg-white rounded-xl border border-gray-200 p-3 flex items-center gap-2">
               <button
-                className="flex-1 border border-gray-300 rounded-lg py-3 text-[14px] font-semibold text-gray-800 transition-colors duration-150 hover:bg-gray-100"
+                className="flex-1 border border-gray-300 rounded-lg py-3 text-[14px] font-semibold text-gray-800 transition-colors duration-150 hover:bg-gray-100 disabled:opacity-60 disabled:cursor-not-allowed"
                 onClick={handlePrimaryAction}
+                disabled={!isInStock}
               >
-                {inCart ? 'Go to cart' : 'Add to cart'}
+                {isInStock ? (inCart ? 'Go to cart' : 'Add to cart') : 'Out of stock'}
               </button>
               <button
-                className="flex-1 bg-[#ffe11b] rounded-lg py-3 text-[14px] font-semibold text-gray-900 transition-colors duration-150 hover:bg-[#fff3a0]"
+                className="flex-1 bg-[#ffe11b] rounded-lg py-3 text-[14px] font-semibold text-gray-900 transition-colors duration-150 hover:bg-[#fff3a0] disabled:opacity-60 disabled:cursor-not-allowed"
                 onClick={handleBuyNow}
+                disabled={!isInStock}
               >
-                Buy at ₹{product.price}
+                {isInStock ? `Buy at ₹${product.price}` : 'Unavailable'}
               </button>
             </div>
           </div>

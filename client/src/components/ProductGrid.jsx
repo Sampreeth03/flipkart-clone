@@ -17,6 +17,8 @@ const ProductGrid = ({ title, products }) => {
               const imageSrc = categoryImages[0]
                 || product.primary_image
                 || fallbackImage;
+              const stockCount = Number(product.stock || 0);
+              const isInStock = stockCount > 0;
 
               return (
                 <div key={product.id} className="bg-[#f1f3f6] px-2">
@@ -48,6 +50,14 @@ const ProductGrid = ({ title, products }) => {
                       <p className="mt-0.5 text-[13px] text-[#6b6b6b] leading-snug truncate">
                         {product.description}
                       </p>
+                      <div className="mt-1 flex items-center gap-2">
+                        <span className={`text-[12px] font-semibold ${isInStock ? 'text-green-700' : 'text-red-600'}`}>
+                          {isInStock ? 'In stock' : 'Out of stock'}
+                        </span>
+                        {isInStock && (
+                          <span className="text-[11px] text-gray-500">({stockCount} left)</span>
+                        )}
+                      </div>
                       <div className="mt-2 flex items-center space-x-2">
                         <span className="text-gray-500 line-through text-xs">₹{product.mrp}</span>
                         <span className="text-black font-bold text-[14px]">₹{product.price}</span>
