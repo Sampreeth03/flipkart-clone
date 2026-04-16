@@ -15,7 +15,7 @@ app.use(cors({
     origin: true, // This dynamically reflects the requesting origin
 //   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  allowedHeaders: ["Content-Type", "Authorization"],
 //   origin: "https://flipkart-clone-peach-six.vercel.app/", 
   credentials: true
 }));                   // allow React frontend on different port
