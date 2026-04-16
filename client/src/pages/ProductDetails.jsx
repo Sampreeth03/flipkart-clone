@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { getCategoryImages } from '../utils/categoryImages';
+import fallbackImage from '../assets/images/casualshirts.webp';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -67,8 +68,6 @@ const ProductDetails = () => {
     }
     return [];
   }, [product]);
-
-  const fallbackImage = 'https://placehold.co/800x800/e5e7eb/111?text=';
 
   const carouselImages = useMemo(() => {
     if (imageList.length === 0) return [fallbackImage, fallbackImage];

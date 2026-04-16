@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import fallbackImage from '../assets/images/casualshirts.webp';
 
 const OrderSuccess = () => {
   const navigate = useNavigate();
@@ -48,12 +49,12 @@ const OrderSuccess = () => {
                   <div className="p-4 flex gap-4">
                     <div className="w-[96px] h-[128px] bg-[#f1f3f6] rounded-sm overflow-hidden flex items-center justify-center">
                       <img
-                        src={item.image}
+                        src={item.image || fallbackImage}
                         alt={item.name}
                         className="w-full h-full object-cover"
                         onError={(event) => {
                           event.currentTarget.onerror = null;
-                          event.currentTarget.src = `https://placehold.co/200x260/e5e7eb/111?text=${encodeURIComponent(item.name)}`;
+                          event.currentTarget.src = fallbackImage;
                         }}
                       />
                     </div>

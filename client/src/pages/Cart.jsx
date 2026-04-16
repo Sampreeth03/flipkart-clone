@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import fallbackImage from '../assets/images/casualshirts.webp';
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -88,14 +89,14 @@ const Cart = () => {
                       <div className="w-[110px]">
                         <div className="w-[110px] h-[140px] bg-[#f1f3f6] rounded-sm overflow-hidden flex items-center justify-center">
                           <img
-                            src={item.image}
+                            src={item.image || fallbackImage}
                             alt={item.name}
                             referrerPolicy="no-referrer"
                             loading="lazy"
                             className="w-full h-full object-cover"
                             onError={(event) => {
                               event.currentTarget.onerror = null;
-                              event.currentTarget.src = 'https://placehold.co/200x260/e5e7eb/111?text=';
+                              event.currentTarget.src = fallbackImage;
                             }}
                           />
                         </div>

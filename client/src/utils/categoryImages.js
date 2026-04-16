@@ -1,9 +1,13 @@
-
-
-
-
-
-
+import twoWheelers1 from '../assets/images/sliding images/Two Wheelers/1.webp';
+import twoWheelers2 from '../assets/images/sliding images/Two Wheelers/2.webp';
+import sports2 from '../assets/images/sliding images/Sports/2.webp';
+import sports3 from '../assets/images/sliding images/Sports/3.webp';
+import sports4 from '../assets/images/sliding images/Sports/4.webp';
+import books2 from '../assets/images/sliding images/Books/2.webp';
+import books3 from '../assets/images/sliding images/Books/3.webp';
+import furniture1 from '../assets/images/sliding images/Furniture/1.webp';
+import furniture2 from '../assets/images/sliding images/Furniture/2.webp';
+import furniture3 from '../assets/images/sliding images/Furniture/3.webp';
 
 
 const fashionImagesByName = {
@@ -143,6 +147,22 @@ export const getCategoryImages = (product) => {
 
   if (categoryName === 'Food & Health' || product.category_id === 8) {
     return foodHealthImagesByName[product.name] || [];
+  }
+
+  if (categoryName === 'Two Wheelers' || product.category_id === 10) {
+    return [twoWheelers1, twoWheelers2];
+  }
+
+  if (categoryName === 'Sports' || product.category_id === 11) {
+    return [sports2, sports3, sports4];
+  }
+
+  if (categoryName === 'Books' || product.category_id === 12) {
+    return [books2, books3];
+  }
+
+  if (categoryName === 'Furniture' || product.category_id === 13) {
+    return [furniture1, furniture2, furniture3];
   }
 
   return [];

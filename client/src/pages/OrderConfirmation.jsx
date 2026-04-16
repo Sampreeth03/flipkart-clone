@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import fallbackImage from '../assets/images/casualshirts.webp';
 
 const OrderConfirmation = () => {
   const location = useLocation();
@@ -42,14 +43,14 @@ const OrderConfirmation = () => {
                   <div className="p-4 flex gap-4">
                     <div className="w-[96px] h-[128px] bg-[#f1f3f6] rounded-sm overflow-hidden flex items-center justify-center">
                       <img
-                        src={item.image}
+                        src={item.image || fallbackImage}
                         alt={item.name}
                         referrerPolicy="no-referrer"
                         loading="lazy"
                         className="w-full h-full object-cover"
                         onError={(event) => {
                           event.currentTarget.onerror = null;
-                          event.currentTarget.src = 'https://placehold.co/200x260/e5e7eb/111?text=';
+                          event.currentTarget.src = fallbackImage;
                         }}
                       />
                     </div>

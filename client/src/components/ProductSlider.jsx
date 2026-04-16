@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import fallbackImage from '../assets/images/casualshirts.webp';
 
 const ProductSlider = ({ title, products }) => {
   return (
@@ -21,10 +22,14 @@ const ProductSlider = ({ title, products }) => {
                 aria-hidden="true"
               />
               <div className="relative w-full h-[110px] flex items-center justify-center mb-0.5">
-                <img 
-                  src={product.primary_image || 'https://via.placeholder.com/150'} 
-                  alt={product.name} 
+                <img
+                  src={product.primary_image || fallbackImage}
+                  alt={product.name}
                   className="w-full h-full object-contain"
+                  onError={(event) => {
+                    event.currentTarget.onerror = null;
+                    event.currentTarget.src = fallbackImage;
+                  }}
                 />
               </div>
               <h3 className="relative text-[11px] text-gray-800 font-medium truncate leading-tight">{product.name}</h3>

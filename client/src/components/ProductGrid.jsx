@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { getCategoryImages } from '../utils/categoryImages';
+import fallbackImage from '../assets/images/casualshirts.webp';
 
 const ProductGrid = ({ title, products }) => {
   return (
@@ -15,7 +16,7 @@ const ProductGrid = ({ title, products }) => {
               const categoryImages = getCategoryImages(product);
               const imageSrc = categoryImages[0]
                 || product.primary_image
-                || 'https://placehold.co/600x600/e5e7eb/111?text=';
+                || fallbackImage;
 
               return (
                 <div key={product.id} className="bg-[#f1f3f6] px-2">
@@ -36,7 +37,7 @@ const ProductGrid = ({ title, products }) => {
                           loading="lazy"
                           onError={(event) => {
                             event.currentTarget.onerror = null;
-                            event.currentTarget.src = 'https://placehold.co/600x600/e5e7eb/111?text=';
+                            event.currentTarget.src = fallbackImage;
                           }}
                           className="w-full h-full object-cover"
                         />

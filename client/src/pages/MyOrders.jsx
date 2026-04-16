@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
+import fallbackImage from '../assets/images/casualshirts.webp';
 
 const formatCurrency = (value) => Number(value || 0).toFixed(0);
 
@@ -100,12 +101,12 @@ const MyOrders = () => {
                     <div key={`${order.id}-${item.product_id}`} className="flex items-center gap-4">
                       <div className="w-16 h-20 bg-[#f1f3f6] rounded-sm overflow-hidden flex items-center justify-center">
                         <img
-                          src={item.image_url || 'https://placehold.co/80x100/e5e7eb/111?text='}
+                          src={item.image_url || fallbackImage}
                           alt={item.product_name}
                           className="w-full h-full object-cover"
                           onError={(event) => {
                             event.currentTarget.onerror = null;
-                            event.currentTarget.src = 'https://placehold.co/80x100/e5e7eb/111?text=';
+                            event.currentTarget.src = fallbackImage;
                           }}
                         />
                       </div>
