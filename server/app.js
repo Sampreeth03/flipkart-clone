@@ -11,7 +11,7 @@ const app = express();
 
 // ── Middlewares ──────────────────────────────────────────────
 app.use(cors({
-  origin: "https://your-frontend-name.vercel.app", 
+  origin: "https://flipkart-clone-peach-six.vercel.app/", 
   credentials: true
 }));                   // allow React frontend on different port
 app.use(express.json());            // parse JSON request bodies
