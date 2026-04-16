@@ -10,7 +10,10 @@ const errorHandler   = require("./middlewares/errorHandler");
 const app = express();
 
 // ── Middlewares ──────────────────────────────────────────────
-app.use(cors());                    // allow React frontend on different port
+app.use(cors({
+  origin: "https://your-frontend-name.vercel.app", 
+  credentials: true
+}));                   // allow React frontend on different port
 app.use(express.json());            // parse JSON request bodies
 
 // ── Routes ──────────────────────────────────────────────────
