@@ -110,6 +110,11 @@ CREATE TABLE IF NOT EXISTS orders (
   -- Shipping address (denormalised for simplicity — address can change later)
   shipping_name    VARCHAR(150)   NOT NULL,
   shipping_phone   VARCHAR(15)    NOT NULL,
+  shipping_alt_phone VARCHAR(15),
+  shipping_address_line1 VARCHAR(255) NOT NULL,
+  shipping_address_line2 VARCHAR(255),
+  shipping_landmark VARCHAR(255),
+  shipping_address_type ENUM('HOME','WORK') DEFAULT 'HOME',
   shipping_address VARCHAR(500)   NOT NULL,
   shipping_city    VARCHAR(100)   NOT NULL,
   shipping_state   VARCHAR(100)   NOT NULL,
