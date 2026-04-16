@@ -1,25 +1,27 @@
 const mysql = require("mysql2/promise");
+require('dotenv').config(); // Ensure this is at the top
 
-// Create a connection pool (reuses connections — faster than creating new ones each request)
 const pool = mysql.createPool({
-  host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "",
-  database: process.env.DB_NAME || "flipkart_clone",
+  // Use Railway's default names OR your custom ones
+  host: process.env.MYSQLHOST || process.env.DB_HOST || "localhost",
+  user: process.env.MYSQLUSER || process.env.DB_USER || "root",
+  password: process.env.MYSQLPASSWORD || process.env.DB_PASSWORD || "",
+  database: process.env.MYSQLDATABASE || process.env.DB_NAME || "flipkart_clone",
+  port: process.env.MYSQLPORT || 3306, // Always include the port for global DBs
   waitForConnections: true,
-  connectionLimit: 10,      // max 10 simultaneous connections
-  queueLimit: 0,            // unlimited queue
+  connectionLimit: 10,
+  queueLimit: 0,
 });
 
-// Test connection on startup
 pool.getConnection()
   .then((conn) => {
-    console.log("✅ MySQL connected successfully");
+    console.log("✅ MySQL connected successfully to Global DB");
     conn.release();
   })
   .catch((err) => {
     console.error("❌ MySQL connection failed:", err.message);
-    process.exit(1); // stop server if DB is not reachable
+    // Don't process.exit(1) in production immediately if you want 
+    // the server to stay up to show an error page, but it's okay for now.
   });
 
 module.exports = pool;
