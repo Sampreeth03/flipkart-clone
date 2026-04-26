@@ -1,10 +1,10 @@
-# Flipkart Clone
+# 🛒 Flipkart Clone
 
-A Full-stack e-commerce application mimicking Flipkart's core features and design patterns.
+A full-stack e-commerce application built as the Scaler SDE Intern Fullstack Assignment. This project implements a complete shopping flow with product discovery, cart management, checkout, and order tracking.
 
 ---
 
-## Table of Contents
+## 📑 Table of Contents
 
 1. [Project Overview](#project-overview)
 2. [Essential Features](#essential-features-assignment-scope)
@@ -19,41 +19,41 @@ A Full-stack e-commerce application mimicking Flipkart's core features and desig
 
 ---
 
-## Project Overview
+## 🎯 Project Overview
 
 This project implements the complete core shopping flow expected in the assignment:
 
-- Product discovery on a listing page.
-- Product exploration on a detail page.
-- Cart operations with quantity updates and totals.
-- Checkout and order placement with shipping details.
-- Order confirmation and order history tracking.
+- 🔍 **Product Discovery** — Browse products with search and category filtering
+- 📦 **Product Details** — Explore items with image gallery and specifications
+- 🛍️ **Cart Management** — Add, update quantities, and remove items
+- 💳 **Checkout Flow** — Provide shipping details and place orders
+- ✅ **Order Confirmation** — View order history and tracking
 
 ---
 
-## Essential Features (Assignment Scope)
+## ✨ Essential Features (Assignment Scope)
 
-### 1. Product Listing Page
+### 1️⃣ Product Listing Page
 
 - Product grid layout with Flipkart-style cards.
 - Search products by keyword.
 - Filter products by category.
 
-### 2. Product Detail Page
+### 2️⃣ Product Detail Page
 
 - Image carousel/gallery for product images.
 - Product details with pricing and ratings.
 - Add to Cart action.
 - Buy Now action.
 
-### 3. Shopping Cart
+### 3️⃣ Shopping Cart
 
 - View all cart items.
 - Update product quantity.
 - Remove cart items.
 - Price details with subtotal and total amount.
 
-### 4. Order Placement
+### 4️⃣ Order Placement
 
 - Checkout page with shipping address form.
 - Order summary review before payment.
@@ -62,17 +62,17 @@ This project implements the complete core shopping flow expected in the assignme
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 | Layer | Technologies |
 |---|---|
-| Frontend | React, Vite, React Router, Axios, Tailwind CSS |
-| Backend | Node.js, Express.js, MySQL, mysql2 |
-| Tooling | ESLint, PostCSS |
+| **Frontend** | React, Vite, React Router, Axios, Tailwind CSS |
+| **Backend** | Node.js, Express.js, MySQL, mysql2 |
+| **Tooling** | ESLint, PostCSS |
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 ```text
 flipkart-clone/
@@ -95,27 +95,27 @@ flipkart-clone/
 
 ---
 
-## Features in Detail
+## 🎨 Features in Detail
 
-### Product Catalog
+### 📱 Product Catalog
 
 - Fetches product data from backend APIs.
 - Supports category navigation and keyword search.
 - Displays image-rich cards with pricing information.
 
-### Product Details Experience
+### 🖼️ Product Details Experience
 
 - Dedicated product page for each item.
 - Multi-image browsing.
 - Quick conversion actions: Add to Cart and Buy Now.
 
-### Cart and Pricing
+### 💰 Cart and Pricing
 
 - Real-time cart sync from backend.
 - Quantity updates and item removal.
 - Price summary with MRP, discount, fees, and final total.
 
-### Checkout and Orders
+### 🚚 Checkout and Orders
 
 - Shipping details collection with validation.
 - Order creation via backend order APIs.
@@ -124,35 +124,48 @@ flipkart-clone/
 
 ---
 
-## Database
+## 🗄️ Database
 
 - Relational schema implemented in MySQL.
-- Core tables: categories, products, product_images, product_specifications, users, cart_items, orders, order_items.
-- SQL scripts are available in `server/db/schema.sql` and `server/db/seed.sql`.
+- **Core tables:** categories, products, product_images, product_specifications, users, cart_items, orders, order_items.
+- SQL scripts available in:
+  - `server/db/schema.sql` — Schema initialization
+  - `server/db/seed.sql` — Sample data
+  - `server/db/migrations/` — Future migrations
 
 ---
 
-## Setup and Running
+## 🚀 Setup and Running
 
-### Prerequisites
+### ✅ Prerequisites
 
-- Node.js (LTS recommended)
-- npm
-- MySQL 8+
+```
+✓ Node.js (LTS recommended)
+✓ npm
+✓ MySQL 8+
+```
 
-### 1. Install Dependencies
+---
+
+### 📋 Installation Steps
+
+#### Step 1: Install Dependencies
+
+Navigate to both folders and install packages:
 
 ```bash
+# Backend
 cd server
 npm install
 
+# Frontend  
 cd ../client
 npm install
 ```
 
-### 2. Configure Backend Environment
+#### Step 2: Configure Environment
 
-Create `server/.env` with the following values:
+Create `server/.env` with your database credentials:
 
 ```env
 DB_HOST=localhost
@@ -162,42 +175,42 @@ DB_NAME=flipkart_clone
 PORT=8080
 ```
 
-### 3. Initialize Database
+#### Step 3: Initialize Database
 
-Run the following in MySQL:
+Open MySQL and run:
 
 ```sql
 SOURCE server/db/schema.sql;
 SOURCE server/db/seed.sql;
 ```
 
-Optional migration:
+Optional (for delivery instructions):
 
 ```sql
 SOURCE server/db/migrations/2026-04-16_add_delivery_instructions.sql;
 ```
 
-### 4. Start Backend Server
+#### Step 4: Start Backend Server
 
 ```bash
 cd server
 npm start
 ```
 
-Backend base URL: `http://localhost:8080/api`
+Backend runs at: `http://localhost:8080/api`
 
-### 5. Start Frontend App
+#### Step 5: Start Frontend App
 
 ```bash
 cd client
 npm run dev
 ```
 
-Frontend URL: `http://localhost:5173`
+Frontend runs at: `http://localhost:5173`
 
 ---
 
-## API Overview
+## 🔌 API Overview
 
 | Method | Endpoint | Purpose |
 |---|---|---|
@@ -214,15 +227,28 @@ Frontend URL: `http://localhost:5173`
 
 ---
 
-## Assumptions
+## 💡 Assumptions
 
-- A default user is treated as logged in for cart and order flows.
-- Prices and totals are represented in INR.
-- Implementation focuses on assignment-required core functionality.
+- 👤 Default user is logged in for all cart and order operations
+- 💵 All prices and totals displayed in **INR** (Indian Rupees)
+- 📌 Stock tracking enabled — inventory deducts on order placement
+- ✅ Implementation focuses on core assignment requirements
 
 ---
 
-## Bonus Implemented
+## 🎁 Bonus Implemented
 
-- Added a **My Orders** page where users can view previously placed orders along with order details.
+### My Orders Feature
+
+✨ Users can view their complete order history with:
+- Order ID and timestamps
+- Item details and pricing
+- Shipping address and status
+- Order timeline tracking
+
+---
+
+## 📧 Support
+
+For questions or issues, please refer to the project documentation or create an issue in the repository.
 
